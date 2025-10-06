@@ -19,7 +19,7 @@ const Header = () => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div className="text-2xl font-bold text-gray-800">
-          My Website
+          CastEnginneering Website
         </div>
         <nav className="hidden md:flex space-x-6">
           <a href="#about" className="text-gray-600 hover:text-blue-500 transition duration-300">私について</a>
