@@ -3,7 +3,7 @@ import type { NextPage, Metadata } from 'next';
 // Next.js 13以降のApp Routerでは、<Head>コンポーネントの代わりに
 // metadataオブジェクトをexportしてページの情報を設定します。
 export const metadata: Metadata = {
-  title: 'My Website | 私のホームページ',
+  title: 'CastEnginneering Website | 私のホームページ',
   description: 'Next.jsとVercelで作成したモダンなホームページです。',
   // faviconは public/favicon.ico に配置することで自動的に認識されます。
 };
