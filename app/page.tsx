@@ -31,7 +31,7 @@ const Header = ({ activeSection, setActiveSection }: {
               onClick={() => setActiveSection('profile')}
               className="text-2xl font-bold text-gray-900 cursor-pointer"
             >
-              Your Company
+              キャスト・エンジニアリング
             </span>
           </div>
           
@@ -91,21 +91,21 @@ const SectionTitle = ({ title, subtitle }: {
 // 会社概要
 const CompanyProfile = () => {
   const profileData = [
-    { label: '商号', value: '株式会社 Your Company' },
-    { label: '設立日', value: '2000年1月1日' },
-    { label: '資本金', value: '100,000,000円' },
-    { label: '従業員数', value: '150名（2024年4月現在）' },
-    { label: '取締役社長', value: '山田 太郎' },
-    { label: '取引銀行', value: '〇〇銀行、△△銀行' },
-    { label: '適格請求書発行事業者登録番号', value: 'T1234567890123' },
-    { label: '所在地', value: '〒100-0001 東京都千代田区千代田1-1' },
-    { label: 'TEL', value: '03-1234-5678' },
-    { label: 'FAX', value: '03-1234-5679' },
+    { label: '商号', value: '株式会社 キャスト・エンジニアリング' },
+    { label: '設立日', value: '1993年10月20日' },
+    { label: '資本金', value: '10,000,000円' },
+    { label: '従業員数', value: '2名（2025年9月現在）' },
+    { label: '取締役社長', value: '中嶋 和生' },
+    { label: '取引銀行', value: '東農信用金庫、三菱UFJ銀行' },
+    { label: '適格請求書発行事業者登録番号', value: 'T5180001074021' },
+    { label: '所在地', value: '〒480-0305 愛知県春日井市坂下町5-1215-446' },
+    { label: 'TEL', value: '0568-88-5141' },
+    { label: 'FAX', value: '0568-88-5656' },
   ];
 
   return (
     <section className="py-16 sm:py-24">
-      <SectionTitle title="COMPANY" subtitle="会社概要" />
+      <SectionTitle title="キャスト・エンジニアリング" subtitle="会社概要" />
       <div className="max-w-4xl mx-auto">
         <div className="overflow-hidden bg-white shadow-lg rounded-lg border border-gray-200">
           <dl className="divide-y divide-gray-200">
