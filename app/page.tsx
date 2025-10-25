@@ -1,82 +1,157 @@
-import type { NextPage, Metadata } from 'next';
+import React, { useState } from 'react';
+// Next.jsでは、<Head>を使ってページの<head>タグを編集できます
+// import Head from 'next/head';
 
-// Next.js 13以降のApp Routerでは、<Head>コンポーネントの代わりに
-// metadataオブジェクトをexportしてページの情報を設定します。
-export const metadata: Metadata = {
-  title: 'CastEnginneering Website | 私のホームページ',
-  description: 'Next.jsとVercelで作成したモダンなホームページです。',
-  // faviconは public/favicon.ico に配置することで自動的に認識されます。
+// ナビゲーションヘッダー
+type HeaderProps = {
+  activeSection: string;
+  setActiveSection: (section: string) => void;
 };
 
+const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection }) => {
+  const navItems = [
+    { id: 'profile', label: '会社概要' },
+    { id: 'business', label: '事業内容' },
+    { id: 'contact', label: 'お問い合わせ' },
+  ];
 
-// FontAwesomeなどのアイコンライブラリを使うと、より見栄えが良くなります。
-// 例: <script src="https://kit.fontawesome.com/a076d05399.js" crossOrigin="anonymous"></script>
-// ここではSVGアイコンを直接埋め込んでいます。
-
-// ヘッダーナビゲーションのコンポーネント
-const Header = () => {
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div className="text-2xl font-bold text-gray-800">
-          CastEnginneering Website
-        </div>
-        <nav className="hidden md:flex space-x-6">
-          <a href="#about" className="text-gray-600 hover:text-blue-500 transition duration-300">私について</a>
-          <a href="#services" className="text-gray-600 hover:text-blue-500 transition duration-300">サービス</a>
-          <a href="#contact" className="text-gray-600 hover:text-blue-500 transition duration-300">お問い合わせ</a>
-        </nav>
-        {/* モバイル用のメニューボタン（機能は実装していません） */}
-        <div className="md:hidden">
-          <button className="text-gray-800 focus:outline-none" aria-label="メニューを開く">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-          </button>
+    <header className="sticky top-0 z-50 bg-white shadow-md">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+          {/* ロゴ */}
+          <div className="flex-shrink-0">
+            <span
+              onClick={() => setActiveSection('profile')}
+              className="text-2xl font-bold text-gray-900 cursor-pointer"
+            >
+              Your Company
+            </span>
+          </div>
+          
+          {/* ナビゲーション */}
+          <nav className="hidden md:flex md:space-x-10">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                className={`relative inline-flex items-center text-sm font-medium transition-colors duration-200
+                  ${
+                    activeSection === item.id
+                      ? 'text-gray-900'
+                      : 'text-gray-500 hover:text-gray-900'
+                  }
+                `}
+              >
+                {item.label}
+                {/* アクティブ時の下線 */}
+                {activeSection === item.id && (
+                  <span className="absolute bottom-[-8px] left-0 h-1 w-full bg-red-600 rounded-full"></span>
+                )}
+              </button>
+            ))}
+          </nav>
+
+          {/* モバイルメニューボタン (ここでは機能実装なし、UIのみ) */}
+          <div className="md:hidden">
+            <button
+              className="text-gray-500 hover:text-gray-900 focus:outline-none"
+              aria-label="メニューを開く"
+              title="メニューを開く"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </header>
   );
 };
 
-// ヒーローセクション（メインビジュアル）のコンポーネント
-const HeroSection = () => {
+// メインの見出しコンポーネント
+type SectionTitleProps = {
+  title: string;
+  subtitle: string;
+};
+
+const SectionTitle: React.FC<SectionTitleProps> = ({ title, subtitle }) => (
+  <div className="mb-12 text-center">
+    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+      {title}
+    </h2>
+    <p className="mt-3 text-lg text-gray-500 sm:mt-4">
+      {subtitle}
+    </p>
+    <div className="mt-4 mx-auto h-1 w-20 bg-red-600 rounded-full"></div>
+  </div>
+);
+
+// 会社概要
+const CompanyProfile = () => {
+  const profileData = [
+    { label: '商号', value: '株式会社 Your Company' },
+    { label: '設立日', value: '2000年1月1日' },
+    { label: '資本金', value: '100,000,000円' },
+    { label: '従業員数', value: '150名（2024年4月現在）' },
+    { label: '取締役社長', value: '山田 太郎' },
+    { label: '取引銀行', value: '〇〇銀行、△△銀行' },
+    { label: '適格請求書発行事業者登録番号', value: 'T1234567890123' },
+    { label: '所在地', value: '〒100-0001 東京都千代田区千代田1-1' },
+    { label: 'TEL', value: '03-1234-5678' },
+    { label: 'FAX', value: '03-1234-5679' },
+  ];
+
   return (
-    <section className="bg-blue-600 text-white">
-      <div className="container mx-auto px-6 py-24 text-center">
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4">ようこそ！私のホームページへ</h1>
-        <p className="text-lg md:text-xl text-blue-200 mb-8">最新の技術で、最高のウェブ体験をお届けします。</p>
-        <a 
-          href="#contact" 
-          className="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 transform hover:scale-105"
-        >
-          お問い合わせはこちら
-        </a>
+    <section className="py-16 sm:py-24">
+      <SectionTitle title="COMPANY" subtitle="会社概要" />
+      <div className="max-w-4xl mx-auto">
+        <div className="overflow-hidden bg-white shadow-lg rounded-lg border border-gray-200">
+          <dl className="divide-y divide-gray-200">
+            {profileData.map((item, index) => (
+              <div
+                key={index}
+                className="px-6 py-5 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4"
+              >
+                <dt className="text-sm font-semibold text-gray-700 md:col-span-1">
+                  {item.label}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 md:mt-0 md:col-span-2">
+                  {item.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );
 };
 
-// 「私について」セクションのコンポーネント
-const AboutSection = () => {
+// 事業内容
+const BusinessContent = () => {
   return (
-    <section id="about" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">私について</h2>
-        <div className="w-20 h-1 bg-blue-500 mx-auto mb-12"></div>
-        <div className="flex flex-wrap items-center">
-          <div className="w-full md:w-1/2 p-4">
-            {/* 画像プレースホルダー */}
-            <div className="bg-gray-300 rounded-lg shadow-lg h-80 flex items-center justify-center">
-              <span className="text-gray-500">（ここに画像）</span>
-            </div>
-          </div>
-          <div className="w-full md:w-1/2 p-4">
-            <h3 className="text-2xl text-gray-800 font-semibold mb-4">自己紹介</h3>
+    <section className="py-16 sm:py-24 bg-gray-50">
+      <SectionTitle title="BUSINESS" subtitle="事業内容" />
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="space-y-10">
+          {/* 事業内容の例 1 */}
+          <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              革新的なテクノロジー事業
+            </h3>
             <p className="text-gray-600 leading-relaxed">
-              はじめまして。私はウェブサイト制作を専門とするデベロッパーです。
-              Next.js、React、TypeScriptなどのモダンな技術スタックを用いて、ユーザーにとって使いやすく、見た目にも美しいサイトを構築することを得意としています。
-              お客様のビジネスゴール達成をサポートするため、最適なソリューションをご提案します。
+              最先端のAIとIoT技術を駆使し、社会の課題を解決するソリューションを提供します。スマートシティの構築から、効率的なデータ分析基盤まで、未来を形作るテクノロジーを追求しています。
+            </p>
+          </div>
+          {/* 事業内容の例 2 */}
+          <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              サステナブルなソリューション
+            </h3>
+            <p className="text-gray-600 leading-relaxed">
+              地球環境との共生を目指し、再生可能エネルギー関連のコンサルティングや、エコフレンドリーな製品の開発を行っています。持続可能な社会の実現に貢献します。
             </p>
           </div>
         </div>
@@ -85,73 +160,72 @@ const AboutSection = () => {
   );
 };
 
-// 「サービス」セクションのコンポーネント
-const ServicesSection = () => {
-  const services = [
-    {
-      icon: <svg className="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>,
-      title: 'ウェブサイト制作',
-      description: '静的なコーポレートサイトから動的なウェブアプリケーションまで、ご要望に応じたサイトを制作します。',
-    },
-    {
-      icon: <svg className="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>,
-      title: 'レスポンシブ対応',
-      description: 'スマートフォン、タブレット、PCなど、あらゆるデバイスで最適に表示されるデザインを実装します。',
-    },
-    {
-      icon: <svg className="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>,
-      title: '高速化・SEO対策',
-      description: 'Next.jsの強みを活かし、表示速度の速いサイトを構築。検索エンジンにも評価されやすい構造にします。',
-    },
-  ];
+// お問い合わせフォーム
+const ContactForm = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // ここにフォームの送信処理（APIへの送信など）を実装します
+    // Next.jsの場合、'/api/contact'のようなAPIルートを作成することが一般的です
+    console.log('フォームが送信されました');
+    // 送信完了メッセージなどを表示
+  };
 
-  return (
-    <section id="services" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">サービス</h2>
-        <div className="w-20 h-1 bg-blue-500 mx-auto mb-12"></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div key={index} className="bg-gray-50 p-8 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
-              <div className="flex justify-center mb-4">
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">{service.title}</h3>
-              <p className="text-gray-600">{service.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+  type InputFieldProps = {
+    label: string;
+    id: string;
+    type?: string;
+    required?: boolean;
+    placeholder?: string;
+  };
+
+  const InputField: React.FC<InputFieldProps> = ({ label, id, type = 'text', required = false, placeholder }) => (
+    <div>
+      <label htmlFor={id} className="block text-sm font-semibold text-gray-800">
+        {label}
+        {required && <span className="text-red-600 ml-1">*</span>}
+      </label>
+      <input
+        type={type}
+        id={id}
+        name={id}
+        required={required}
+        placeholder={placeholder}
+        className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm p-3 border"
+      />
+    </div>
   );
-};
 
-// 「お問い合わせ」セクションのコンポーネント
-const ContactSection = () => {
   return (
-    <section id="contact" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">お問い合わせ</h2>
-        <div className="w-20 h-1 bg-blue-500 mx-auto mb-12"></div>
-        <div className="max-w-xl mx-auto">
-          <p className="text-center text-gray-600 mb-8">
-            ご質問やご相談、お仕事の依頼など、お気軽にご連絡ください。
-          </p>
-          <form className="bg-white p-8 rounded-lg shadow-lg">
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 font-bold mb-2">お名前</label>
-              <input type="text" id="name" className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="山田 太郎" />
+    <section className="py-16 sm:py-24">
+      <SectionTitle title="CONTACT" subtitle="お問い合わせ" />
+      <div className="max-w-3xl mx-auto px-4">
+        <div className="bg-white p-8 sm:p-10 rounded-lg shadow-lg border border-gray-200">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <InputField label="企業名" id="company-name" placeholder="株式会社 Your Company" />
+            <InputField label="部署" id="department" placeholder="営業部" />
+            <InputField label="氏名" id="name" required placeholder="山田 太郎" />
+            <InputField label="フリガナ" id="kana" placeholder="ヤマダ タロウ" />
+            <InputField label="メールアドレス" id="email" type="email" required placeholder="your.email@example.com" />
+            <InputField label="連絡先（電話番号）" id="phone" type="tel" placeholder="03-1234-5678" />
+
+            <div>
+              <label htmlFor="message" className="block text-sm font-semibold text-gray-800">
+                お問い合わせ内容
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={6}
+                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm p-3 border"
+                placeholder="お問い合わせ内容をご記入ください..."
+              ></textarea>
             </div>
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 font-bold mb-2">メールアドレス</label>
-              <input type="email" id="email" className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="your-email@example.com" />
-            </div>
-            <div className="mb-6">
-              <label htmlFor="message" className="block text-gray-700 font-bold mb-2">メッセージ</label>
-              <textarea id="message" rows={5} className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="お問い合わせ内容をご記入ください..."></textarea>
-            </div>
-            <div className="text-center">
-              <button type="submit" className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300">
+
+            <div className="text-center pt-4">
+              <button
+                type="submit"
+                className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-3 px-12 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-300"
+              >
                 送信する
               </button>
             </div>
@@ -162,33 +236,55 @@ const ContactSection = () => {
   );
 };
 
-// フッターのコンポーネント
+// フッター
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
-      <div className="container mx-auto px-6 text-center">
-        <p>&copy; {new Date().getFullYear()} My Website. All Rights Reserved.</p>
+    <footer className="bg-gray-800 text-gray-400">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+        <p className="text-sm">
+          &copy; {new Date().getFullYear()} Your Company. All Rights Reserved.
+        </p>
       </div>
     </footer>
   );
 };
 
+// メインのAppコンポーネント
+// Next.jsでは、これが `pages/index.js` のようなファイルになります
+export default function CorporateSite() {
+  const [activeSection, setActiveSection] = useState('profile'); // 初期表示セクション
 
-// ページ全体のコンポーネント
-const HomePage: NextPage = () => {
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'profile':
+        return <CompanyProfile />;
+      case 'business':
+        return <BusinessContent />;
+      case 'contact':
+        return <ContactForm />;
+      default:
+        return <CompanyProfile />;
+    }
+  };
+
   return (
-    <div className="font-sans">
-      <Header />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <ContactSection />
+    <div className="flex min-h-screen flex-col bg-white font-sans">
+      {/* Next.jsの<Head>コンポーネントを使って、
+        ページのタイトルやメタ情報を設定できます。
+      */}
+      {/* <Head>
+        <title>Your Company - シンプルでかっこいいコーポレートサイト</title>
+        <meta name="description" content="事業内容と会社概要" />
+      </Head> 
+      */}
+
+      <Header activeSection={activeSection} setActiveSection={setActiveSection} />
+
+      <main className="flex-grow">
+        {renderSection()}
       </main>
+
       <Footer />
     </div>
   );
-};
-
-export default HomePage;
-
+}
