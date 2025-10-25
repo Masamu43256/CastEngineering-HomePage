@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
+import type { NextPage, Metadata } from 'next';
 // Next.jsでは、<Head>を使ってページの<head>タグを編集できます
 // import Head from 'next/head';
 
