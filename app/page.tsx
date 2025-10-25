@@ -4,9 +4,18 @@ import React, { useState } from 'react';
 // Next.jsでは、<Head>を使ってページの<head>タグを編集できます
 // import Head from 'next/head'; (エラー回避のためコメントアウト)
 
+// --- 型定義 ---
+// ナビゲーションセクションのID型
+type SectionId = 'profile' | 'business' | 'contact';
+
+// --- コンポーネント定義 ---
+
 // ナビゲーションヘッダー
-const Header = ({ activeSection, setActiveSection }) => {
-  const navItems = [
+const Header = ({ activeSection, setActiveSection }: {
+  activeSection: SectionId;
+  setActiveSection: React.Dispatch<React.SetStateAction<SectionId>>;
+}) => {
+  const navItems: { id: SectionId, label: string }[] = [
     { id: 'profile', label: '会社概要' },
     { id: 'business', label: '事業内容' },
     { id: 'contact', label: 'お問い合わせ' },
@@ -64,7 +73,10 @@ const Header = ({ activeSection, setActiveSection }) => {
 };
 
 // メインの見出しコンポーネント
-const SectionTitle = ({ title, subtitle }) => (
+const SectionTitle = ({ title, subtitle }: {
+  title: string;
+  subtitle: string;
+}) => (
   <div className="mb-12 text-center">
     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
       {title}
@@ -150,7 +162,7 @@ const BusinessContent = () => {
 
 // お問い合わせフォーム
 const ContactForm = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // ここにフォームの送信処理（APIへの送信など）を実装します
     // Next.jsの場合、'/api/contact'のようなAPIルートを作成することが一般的です
@@ -158,7 +170,13 @@ const ContactForm = () => {
     // 送信完了メッセージなどを表示
   };
 
-  const InputField = ({ label, id, type = 'text', required = false, placeholder }) => (
+  const InputField = ({ label, id, type = 'text', required = false, placeholder }: {
+    label: string;
+    id: string;
+    type?: string; // typeはオプショナル（デフォルト値があるため）
+    required?: boolean; // requiredはオプショナル（デフォルト値があるため）
+    placeholder?: string; // placeholderはオプショナル
+  }) => (
     <div>
       <label htmlFor={id} className="block text-sm font-semibold text-gray-800">
         {label}
@@ -232,7 +250,7 @@ const Footer = () => {
 // メインのAppコンポーネント
 // Next.jsでは、これが `pages/index.js` のようなファイルになります
 export default function CorporateSite() {
-  const [activeSection, setActiveSection] = useState('profile'); // 初期表示セクション
+  const [activeSection, setActiveSection] = useState<SectionId>('profile'); // 初期表示セクション
 
   const renderSection = () => {
     switch (activeSection) {
@@ -271,5 +289,6 @@ export default function CorporateSite() {
     </div>
   );
 }
+
 
 
