@@ -1,7 +1,8 @@
-//import React, { useState } from 'react';
-import type { NextPage, Metadata } from 'next';
+"use client"; // クライアントコンポーネントであることを明示
+
+import React, { useState } from 'react';
 // Next.jsでは、<Head>を使ってページの<head>タグを編集できます
-// import Head from 'next/head';
+// import Head from 'next/head'; (エラー回避のためコメントアウト)
 
 // ナビゲーションヘッダー
 const Header = ({ activeSection, setActiveSection }) => {
@@ -248,8 +249,11 @@ export default function CorporateSite() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white font-sans">
-      {/* Next.jsの<Head>コンポーネントを使って、
-        ページのタイトルやメタ情報を設定できます。
+      {/*
+        Next.jsの<Head>コンポーネントはプレビュー環境でエラーになるため削除しました。
+        実際のNext.jsプロジェクトでは、このファイルの代わりに
+        pages/_app.js や pages/index.js (または app/layout.js) で
+        <Head>タグや<title>タグを設定することが推奨されます。
       */}
       {/* <Head>
         <title>Your Company - シンプルでかっこいいコーポレートサイト</title>
@@ -267,3 +271,5 @@ export default function CorporateSite() {
     </div>
   );
 }
+
+
