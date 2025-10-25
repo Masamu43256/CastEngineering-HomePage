@@ -105,7 +105,7 @@ const CompanyProfile = () => {
 
   return (
     <section className="py-16 sm:py-24">
-      <SectionTitle title="キャスト・エンジニアリング" subtitle="会社概要" />
+      <SectionTitle title="COMPANY" subtitle="会社概要" />
       <div className="max-w-4xl mx-auto">
         <div className="overflow-hidden bg-white shadow-lg rounded-lg border border-gray-200">
           <dl className="divide-y divide-gray-200">
