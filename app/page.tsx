@@ -3,12 +3,7 @@ import React, { useState } from 'react';
 // import Head from 'next/head';
 
 // ナビゲーションヘッダー
-type HeaderProps = {
-  activeSection: string;
-  setActiveSection: (section: string) => void;
-};
-
-const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection }) => {
+const Header = ({ activeSection, setActiveSection }) => {
   const navItems = [
     { id: 'profile', label: '会社概要' },
     { id: 'business', label: '事業内容' },
@@ -54,11 +49,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection }) => {
 
           {/* モバイルメニューボタン (ここでは機能実装なし、UIのみ) */}
           <div className="md:hidden">
-            <button
-              className="text-gray-500 hover:text-gray-900 focus:outline-none"
-              aria-label="メニューを開く"
-              title="メニューを開く"
-            >
+            <button className="text-gray-500 hover:text-gray-900 focus:outline-none">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
               </svg>
@@ -71,12 +62,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection }) => {
 };
 
 // メインの見出しコンポーネント
-type SectionTitleProps = {
-  title: string;
-  subtitle: string;
-};
-
-const SectionTitle: React.FC<SectionTitleProps> = ({ title, subtitle }) => (
+const SectionTitle = ({ title, subtitle }) => (
   <div className="mb-12 text-center">
     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
       {title}
@@ -162,7 +148,7 @@ const BusinessContent = () => {
 
 // お問い合わせフォーム
 const ContactForm = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     // ここにフォームの送信処理（APIへの送信など）を実装します
     // Next.jsの場合、'/api/contact'のようなAPIルートを作成することが一般的です
@@ -170,15 +156,7 @@ const ContactForm = () => {
     // 送信完了メッセージなどを表示
   };
 
-  type InputFieldProps = {
-    label: string;
-    id: string;
-    type?: string;
-    required?: boolean;
-    placeholder?: string;
-  };
-
-  const InputField: React.FC<InputFieldProps> = ({ label, id, type = 'text', required = false, placeholder }) => (
+  const InputField = ({ label, id, type = 'text', required = false, placeholder }) => (
     <div>
       <label htmlFor={id} className="block text-sm font-semibold text-gray-800">
         {label}
