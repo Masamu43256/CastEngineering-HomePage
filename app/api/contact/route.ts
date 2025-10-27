@@ -6,8 +6,8 @@ export async function POST(req: NextRequest) {
 
   // 環境変数から送信先・認証情報を取得
   const toEmail = process.env.CONTACT_TO_EMAIL || 'suma41.59.mnmny@gmail.com';
-  const gmailUser = process.env.GMAIL_USER || 'your-gmail@gmail.com';
-  const gmailPass = process.env.GMAIL_PASS || 'your-gmail-app-password';
+  const gmailUser = process.env.GMAIL_USER || 'suma41.59.mnmny@gmail.com';
+  const gmailPass = process.env.GMAIL_PASS || '31xY|deO';
 
   // nodemailerの設定（Gmail例）
   const transporter = nodemailer.createTransport({
@@ -27,6 +27,15 @@ export async function POST(req: NextRequest) {
     });
     return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
+    console.error('メール送信エラー:', error);
+    return NextResponse.json({ 
+      success: false, 
+      error: String(error),
+      details: {
+        toEmail,
+        gmailUser,
+        errorMessage: error instanceof Error ? error.message : String(error)
+      }
+    }, { status: 500 });
   }
 }

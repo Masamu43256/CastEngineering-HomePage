@@ -193,6 +193,7 @@ const ContactForm = () => {
         setSubmitStatus('error');
       }
     } catch (error) {
+      console.error('送信エラー:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
