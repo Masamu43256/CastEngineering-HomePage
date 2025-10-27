@@ -141,13 +141,14 @@ const BusinessContent = () => {
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
               鋳造会社向け
             </h3>
-            <p className="text-gray-600 leading-relaxed">
-              ・耐火物、解体、築炉、キュポラ、電気炉、取鍋などの解体、築炉（施工）<br />
-              ・耐火、断熱耐火物の販売、不定形耐火物、パッチング材、プレキャストブロック、レンガ、断熱材など<br />
-              ・鋳造材料、消耗品等の販売<br />
-              ・分析装置の販売、各種分析の代行<br />
-              ・各種集塵機の保守<br />
-            </p>
+            {/* <p>タグの代わりに<ul>タグを使用 */}
+            <ul className="text-gray-600 leading-relaxed list-disc pl-5 space-y-2"> {/* list-discで黒丸、pl-5で左の余白、space-y-2で項目間の余白 */}
+              <li>耐火物、解体、築炉、キュポラ、電気炉、取鍋などの解体、築炉（施工）</li>
+              <li>耐火、断熱耐火物の販売、不定形耐火物、パッチング材、プレキャストブロック、レンガ、断熱材など</li>
+              <li>鋳造材料、消耗品等の販売</li>
+              <li>分析装置の販売、各種分析の代行</li>
+              <li>各種集塵機の保守</li>
+            </ul>
           </div>
         </div>
       </div>
