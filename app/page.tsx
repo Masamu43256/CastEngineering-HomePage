@@ -163,6 +163,7 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;  // 明示的な型キャスト
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -188,7 +189,7 @@ const ContactForm = () => {
 
       if (response.ok) {
         setSubmitStatus('success');
-        e.currentTarget.reset(); // フォームをリセット
+        form.reset(); // フォームをリセット
       } else {
         setSubmitStatus('error');
       }
