@@ -149,15 +149,6 @@ const BusinessContent = () => {
               ・各種集塵機の保守
             </p>
           </div>
-          {/* 事業内容の例 2 */}
-          <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              サステナブルなソリューション
-            </h3>
-            <p className="text-gray-600 leading-relaxed">
-              地球環境との共生を目指し、再生可能エネルギー関連のコンサルティングや、エコフレンドリーな製品の開発を行っています。持続可能な社会の実現に貢献します。
-            </p>
-          </div>
         </div>
       </div>
     </section>
