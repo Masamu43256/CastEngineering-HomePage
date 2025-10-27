@@ -139,10 +139,14 @@ const BusinessContent = () => {
           {/* 事業内容の例 1 */}
           <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
             <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              革新的なテクノロジー事業
+              鋳造会社向け
             </h3>
             <p className="text-gray-600 leading-relaxed">
-              最先端のAIとIoT技術を駆使し、社会の課題を解決するソリューションを提供します。スマートシティの構築から、効率的なデータ分析基盤まで、未来を形作るテクノロジーを追求しています。
+              ・耐火物、解体、築炉、キュポラ、電気炉、取鍋などの解体、築炉（施工）
+              ・耐火、断熱耐火物の販売、不定形耐火物、パッチング材、プレキャストブロック、レンガ、断熱材など
+              ・鋳造材料、消耗品等の販売
+              ・分析装置の販売、各種分析の代行
+              ・各種集塵機の保守
             </p>
           </div>
           {/* 事業内容の例 2 */}
