@@ -158,12 +158,45 @@ const BusinessContent = () => {
 
 // お問い合わせフォーム
 const ContactForm = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // ここにフォームの送信処理（APIへの送信など）を実装します
-    // Next.jsの場合、'/api/contact'のようなAPIルートを作成することが一般的です
-    console.log('フォームが送信されました');
-    // 送信完了メッセージなどを表示
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      'company-name': formData.get('company-name'),
+      department: formData.get('department'),
+      name: formData.get('name'),
+      kana: formData.get('kana'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        e.currentTarget.reset(); // フォームをリセット
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const InputField = ({ label, id, type = 'text', required = false, placeholder }: {
@@ -215,13 +248,28 @@ const ContactForm = () => {
               ></textarea>
             </div>
 
-            <div className="text-center pt-4">
-              <button
-                type="submit"
-                className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-3 px-12 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-300"
-              >
-                送信する
-              </button>
+            <div className="space-y-4">
+              {submitStatus === 'success' && (
+                <div className="bg-green-50 p-4 rounded-md">
+                  <p className="text-green-800">お問い合わせを送信しました。</p>
+                </div>
+              )}
+              {submitStatus === 'error' && (
+                <div className="bg-red-50 p-4 rounded-md">
+                  <p className="text-red-800">送信に失敗しました。時間をおいて再度お試しください。</p>
+                </div>
+              )}
+              <div className="text-center">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`inline-flex justify-center rounded-md border border-transparent bg-red-600 py-3 px-12 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-300 ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {isSubmitting ? '送信中...' : '送信する'}
+                </button>
+              </div>
             </div>
           </form>
         </div>
