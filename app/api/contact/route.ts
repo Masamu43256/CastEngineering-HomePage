@@ -4,15 +4,17 @@ import nodemailer from 'nodemailer';
 export async function POST(req: NextRequest) {
   const { name, email, message } = await req.json();
 
-  // 送信先メールアドレス
-  const toEmail = 'suma41.59.mnmny@gmail.com';
+  // 環境変数から送信先・認証情報を取得
+  const toEmail = process.env.CONTACT_TO_EMAIL || 'suma41.59.mnmny@gmail.com';
+  const gmailUser = process.env.GMAIL_USER || 'your-gmail@gmail.com';
+  const gmailPass = process.env.GMAIL_PASS || 'your-gmail-app-password';
 
   // nodemailerの設定（Gmail例）
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'your-gmail@gmail.com',
-      pass: 'your-gmail-app-password', // アプリパスワードを推奨
+      user: gmailUser,
+      pass: gmailPass,
     },
   });
 
