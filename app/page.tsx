@@ -15,11 +15,21 @@ const Header = ({ activeSection, setActiveSection }: {
   activeSection: SectionId;
   setActiveSection: React.Dispatch<React.SetStateAction<SectionId>>;
 }) => {
+  //モバイルメニューの開閉状態を管理するstateを追加
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const navItems: { id: SectionId, label: string }[] = [
     { id: 'profile', label: '会社概要' },
     { id: 'business', label: '事業内容' },
     { id: 'contact', label: 'お問い合わせ' },
   ];
+
+  // モバイルメニューのリンクをクリックした時の処理を共通化
+  // セクションを切り替え、メニューを閉じる
+  const handleMobileLinkClick = (id: SectionId) => {
+    setActiveSection(id);
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
