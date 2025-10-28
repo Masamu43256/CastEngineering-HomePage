@@ -44,8 +44,7 @@ const Header = ({ activeSection, setActiveSection }: {
               キャスト・エンジニアリング
             </span>
           </div>
-          
-          {/* ナビゲーション */}
+          {/* ナビゲーション（PC） */}
           <nav className="hidden md:flex md:space-x-10">
             {navItems.map((item) => (
               <button
@@ -67,16 +66,40 @@ const Header = ({ activeSection, setActiveSection }: {
               </button>
             ))}
           </nav>
-
-          {/* モバイルメニューボタン (ここでは機能実装なし、UIのみ) */}
+          {/* モバイルメニューボタン */}
           <div className="md:hidden">
-            <button className="text-gray-500 hover:text-gray-900 focus:outline-none">
+            <button
+              className="text-gray-500 hover:text-gray-900 focus:outline-none"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+              aria-label="メニューを開く"
+            >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
               </svg>
             </button>
           </div>
         </div>
+        {/* モバイルメニュー本体 */}
+        {isMobileMenuOpen && (
+          <nav className="md:hidden bg-white shadow-lg rounded-lg mt-2 p-4 absolute left-0 right-0 z-50">
+            <ul className="space-y-4">
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  <button
+                    onClick={() => handleMobileLinkClick(item.id)}
+                    className={`block w-full text-left text-lg font-medium py-2 px-4 rounded transition-colors duration-200 ${
+                      activeSection === item.id
+                        ? 'text-red-600 bg-gray-100'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
       </div>
     </header>
   );
