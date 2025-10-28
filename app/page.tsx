@@ -319,7 +319,7 @@ const Footer = () => {
     <footer className="bg-gray-800 text-gray-400">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} Your Company. All Rights Reserved.
+          &copy; {new Date().getFullYear()} Cast-Enginnering. All Rights Reserved.
         </p>
       </div>
     </footer>
